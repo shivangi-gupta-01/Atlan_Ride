@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Toaster } from "@/components/ui/sonner"
 import useFetch from "@/hooks/useFetch"
 import { MoveDown, MoveRight, Star } from "lucide-react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { format, formatDistance } from "date-fns";
 import axios from "axios"
@@ -14,19 +14,28 @@ const apiUri = import.meta.env.VITE_REACT_API_URI
 
 const RideDetail = () => {
   const { rideId } = useParams();
+  const navigate = useNavigate()
   const { loading, data, error } = useFetch(`rides/${rideId}`);
+ 
 
-  const handleBook = async() => {
-    try{
-      const res = await axios.get(`${apiUri}/rides/${rideId}/join`, {withCredentials: true})
-      toast(res, {
+  const handleBook = async () => {
+    try {
+      console.log("Joining ride with ID:", rideId); // Log rideId for confirmation
+      const res = await axios.get(`${apiUri}/rides/${rideId}/join`, { withCredentials: true });
+      console.log(res,"res");
+      
+      toast(res.data.message, {
         description: format(new Date(), "PPp"),
       });
-    }catch(err){
-      console.log(err)
+      // Redirect to profile after showing the toast
+      setTimeout(() => {
+        navigate('/profile'); // Redirect to profile page
+      }, 2000);
+    } catch (err) {
+      console.error("Error in handleBook:", err); // Log the error
     }
   };
-
+  
   if (loading) {
     return <Skeleton className="w-full" />;
   }

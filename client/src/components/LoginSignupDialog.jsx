@@ -19,6 +19,7 @@ const LoginSignupDialog = () => {
     event.preventDefault();
     dispatch({ type: 'LOGIN_START' });
     try{
+      // const res = await axios.post(`${apiUri}/auth/login`, loginData, {withCredentials: true})
       const res = await axios.post(`${apiUri}/auth/login`, loginData, {withCredentials: true})
       dispatch({type:"LOGIN_SUCCESS", payload: res.data})
       setLoginData({ email: "", password: "" })
@@ -31,11 +32,15 @@ const LoginSignupDialog = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
     dispatch({ type: 'LOGIN_START' });
+    
     try{
-      const res = await axios.post(`${apiUri}/auth/register`, signupData, {withCredentials: true})
+      const res = await axios.post('http://localhost:8080/api/auth/register', signupData, {withCredentials: true})
+      console.log(res);
+      
       dispatch({type:"LOGIN_SUCCESS", payload: res.data})
       setSignupData({ name: "", email: "", password: "" })
     }catch(err){
+      console.log(err);
       dispatch({type: "LOGIN_FAILED", payload: err.response.data})
     }
   };

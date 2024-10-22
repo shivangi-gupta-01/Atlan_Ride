@@ -1,5 +1,4 @@
 import bg from "@/assets/hero.svg"
-import Search from "@/components/Search"
 
 const Hero = () => {
   return (
@@ -9,7 +8,7 @@ const Hero = () => {
       </div>
       <h1 className="text-2xl text-center sm:text-4xl md:text-5xl absolute text-primary font-extrabold">Your pick of rides at low price</h1>
       <div className="absolute z-10 -bottom-24 w-full px-10 sm:w-fit sm:-bottom-8">
-        <Search />
+        {/* <Search /> */}
       </div>
     </div>
   )

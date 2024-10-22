@@ -3,38 +3,61 @@ import User from "../models/User.js"
 import jwt from "jsonwebtoken"
 
 export const register = async (req, res, next) => {
-  const {name, email, password} = req.body;
-  const userExists = await User.findOne({ email });
-  if (userExists) return res.status(400).json({message:"Email already exists"});
+  const { name, email, password } = req.body;
+  console.log(name, email, password, "back");
 
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-  try{
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // Hash the password
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+
+    // Create the new user object
     const newUser = new User({
       name: name,
       email: email,
-      password: hash
-    })
-    await newUser.save();
-    
-    const accessToken = jwt.sign({ id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
+      password: hash,
+    });
+    console.log(newUser, "New user created");
 
+    // Save the user to the database
+    await newUser.save();
+
+    // Generate JWT token
+    const accessToken = jwt.sign(
+      { id: newUser._id, isAdmin: newUser.isAdmin },
+      process.env.JWT_SECRET, // Ensure JWT_SECRET is set correctly
+      { expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '1d' } // Default to 1 day if not set
+    );
+
+    console.log(accessToken, "Token generated");
+
+    // Define cookie options
     const options = {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === 'production', // Secure in production
       maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
-      sameSite: 'strict' 
+      sameSite: 'strict',
     };
 
-    const { password, isAdmin, ...otherDetails } = newUser._doc;
+    // Destructure user details, excluding password and isAdmin
+    const { password: pwd, isAdmin, ...otherDetails } = newUser._doc;
+
+    // Return response with the token and user details
     return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .json({ user: { ...otherDetails }, isAdmin });
-  }catch(err){
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .json({ user: { ...otherDetails }, isAdmin });
+  } catch (err) {
+    console.error("Error during registration:", err); // Log any errors
     next(err);
   }
-}
+};
+  
 
 export const login = async(req, res, next)=>{
   try{

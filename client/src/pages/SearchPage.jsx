@@ -1,6 +1,5 @@
 import RideCard from '@/components/RideCard';
 import Search from '@/components/Search';
-import Sidebar from '@/components/Sidebar';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
 import useFetch from '@/hooks/useFetch';
@@ -22,14 +21,12 @@ const SearchPage = () => {
             <SlidersHorizontal />
           </DialogTrigger>
           <DialogContent>
-            <Sidebar />
           </DialogContent>
         </Dialog>
       </div>
       <div className="container p-0 max-w-screen-xl grid md:grid-cols-5">
         <div className="hidden md:block">
           <div className="sticky top-16">
-            <Sidebar />
           </div>
         </div>
         <div className="col-span-3 py-6 md:col-span-4 lg:border-l">

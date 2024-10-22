@@ -1,5 +1,8 @@
+import mongoose from 'mongoose';
 import Ride from "../models/Ride.js"
 import User from "../models/User.js"; 
+// import nodemailer from 'nodemailer';
+import sendEmail from './mailer.js'; 
 
 export const getRide = async (req, res, next) => {
   try{
@@ -47,31 +50,70 @@ export const findRides = async (req, res, next) => {
   }
 }
 
-export const joinRide = async (req, res, next) =>{
-  try{
+export const joinRide = async (req, res, next) => {
+  try {
+    console.log("Request Params ID:", req.params.id); // Log Ride ID
+    console.log("User ID:", req.user ? req.user.id : "No User"); // Log User ID
+
+    // Find the ride
     const ride = await Ride.findById(req.params.id);
+    
+    if (!ride) {
+      console.log("Ride not found");
+      return res.status(404).json('Ride not found!');
+    }
 
+    // Check if user already joined
     if (ride.passengers.includes(req.user.id)) {
-      res.status(400).json('You already joined this ride!');
+      console.log("User already joined this ride");
+      return res.status(400).json('You already joined this ride!');
     }
+
+    // Check if ride is full
     if (ride.passengers.length >= ride.availableSeats) {
-      res.status(400).json('Ride is full!');
+      console.log("Ride is full");
+      return res.status(400).json('Ride is full!');
     }
 
-    await Ride.updateOne(
-      { _id: ride._id },
-      { $push: { passengers: req.user.id }, $inc: { availableSeats: -1 } }
-    ),
-    await User.updateOne(
-      { _id: req.user.id },
-      { $push: { ridesJoined: ride._id } }
-    ),
+    // Transaction logic
+    const session = await mongoose.startSession();
+    session.startTransaction();
 
-    res.status(200).json({ message: 'Successfully joined the ride!' });
-  }catch(err){
+    try {
+      // Update ride
+      await Ride.updateOne(
+        { _id: ride._id },
+        { $push: { passengers: req.user.id }, $inc: { availableSeats: -1 } },
+        { session }
+      );
+
+      // Update user
+      await User.updateOne(
+        { _id: req.user.id },
+        { $push: { ridesJoined: ride._id } },
+        { session }
+      );
+
+      await session.commitTransaction();
+      session.endSession();
+
+      console.log("Ride and user successfully updated");
+      res.status(200).json({ message: 'Successfully joined the ride!' });
+    } catch (transactionError) {
+      console.log("Transaction failed:", transactionError);
+      await session.abortTransaction();
+      session.endSession();
+      next(transactionError);
+    }
+
+  } catch (err) {
+    console.error("Error in joinRide:", err); // Log the actual error
     next(err);
   }
 }
+
+
+
 
 export const createRide = async (req, res, next) =>{
   try{
