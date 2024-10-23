@@ -6,9 +6,9 @@ Atlan Goods Application backend is built to handle complex logistics operations 
 
 ### Demo Videos
 
-[Customer Demo Large](https://drive.google.com/file/d/1LNJV5VBORtPSvXqigelehDNurmG0Jwmx/view?usp=sharing)
+[Customer Demo](https://drive.google.com/file/d/1LNJV5VBORtPSvXqigelehDNurmG0Jwmx/view?usp=sharing)
 
-[Driver Demo Large](https://drive.google.com/file/d/1v8iLAloYFUiEs_LLdKvGuQR40sNttP2T/view?usp=sharing)
+[Driver Demo](https://drive.google.com/file/d/1v8iLAloYFUiEs_LLdKvGuQR40sNttP2T/view?usp=sharing)
 
 ---
 
