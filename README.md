@@ -68,7 +68,7 @@ Atlan Goods Application backend is built to handle complex logistics operations 
 
 ## Documentation
 
-[Please find documentation about the project here](https://drive.google.com/file/d/1GM4MLy3IFLEc0v61Pi92kl1rxQlHBags/view?usp=sharing)
+[Please find documentation about the project here](https://drive.google.com/file/d/16-UvqLvzSmzlCmIVDwLKxY8XhZjm9YUk/view?usp=sharing)
 
 ## Diagrams
 
@@ -76,6 +76,9 @@ Atlan Goods Application backend is built to handle complex logistics operations 
 
 <p align="center">
   <img src="/diagrams/er.jpg" alt="ER Diagram" />
+</p>
+<p align="center">
+  <img src="/diagrams/Tables.jpg" alt="Tables" />
 </p>
 
 ### Flow Diagram
