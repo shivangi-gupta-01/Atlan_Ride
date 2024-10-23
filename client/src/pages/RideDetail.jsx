@@ -30,7 +30,7 @@ const RideDetail = () => {
       // Redirect to profile after showing the toast
       setTimeout(() => {
         navigate('/profile'); // Redirect to profile page
-      }, 2000);
+      }, 500);
     } catch (err) {
       console.error("Error in handleBook:", err); // Log the error
     }

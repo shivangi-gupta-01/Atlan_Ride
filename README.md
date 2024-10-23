@@ -1,21 +1,42 @@
-# Project
-It is a ride-sharing app that connects people heading to the same destination, allowing them to share rides and save money, reduce traffic, and protect the environment.
+# Atlan Goods Application
 
-### List of features:
-  - **Profile management**: Allow users to view and edit their personal information, and preferences. 
-  - **Flexible Rides**: Users can choose to be drivers, passengers, or both, offering flexibility and ride options.
-  - **Destination-based matching**: Users specify their starting point and final destination, and the app finds potential carpool matches.
-  - **Pre-booking option**: Enable users to pre-book rides for future dates and times for better planning.
-  - **Instant Booking**: An instant booking feature that allows users to quickly find and join available carpools without waiting for approval.
-  - **In-App communication**: Allow riders to send individual messages to the ride creator, clarifying details about the ride, pick-up point, or any other concerns.
-  - **Ride Ratings and Reviews**: A system for users to rate and review their ride-sharing experience, promoting accountability and trust within the community.
+## Overview
 
+Atlan Goods Application backend is built to handle complex logistics operations like booking management, driver assignments, and real-time tracking. It is designed for scalability and handling several requests. The backend includes role-based access for customers, drivers, and admins.
 
-###  Technologies used
+### Demo Videos
 
-This project was created using the following technologies.
+[Customer Demo Large](https://drive.google.com/file/d/1LNJV5VBORtPSvXqigelehDNurmG0Jwmx/view?usp=sharing)
 
-####  Frontend 
+[Driver Demo Large](https://drive.google.com/file/d/1v8iLAloYFUiEs_LLdKvGuQR40sNttP2T/view?usp=sharing)
+
+---
+
+## Features
+
+### 1. Customers
+
+- **Manage Bookings**: Create, update, and cancel bookings.
+- **Real-time Notifications**: Get updates on driver assignments and movements.
+- **Ride Ratings and Reviews**: A system for users to rate and review their ride-sharing experience, promoting accountability and trust within the community.
+
+### 2. Drivers
+
+- **Receive Booking Requests**: Accept or reject bookings based on availability.
+- **Track Bookings**: View and manage active bookings and past history.
+
+### 3. Admins
+
+- **Analytics**: Monitor driver performance and platform activity.
+- **Driver & Vehicle Management**: View, update, and manage driver and vehicle data.
+- **Booking Management**: Full control over booking creation, modification, and deletion.
+- **Email**: Email is sent to the driver upon ride booking with customer details.
+
+---
+
+## Tech Stack
+
+#  Frontend
 
 - [React js ](https://www.npmjs.com/package/react) - JavaScript library that is used for building user interfaces specifically for single-page applications
 - [React Hooks  ](https://reactjs.org/docs/hooks-intro.html) - For managing and centralizing application state
@@ -26,7 +47,7 @@ This project was created using the following technologies.
 - [Tailwind Css](https://tailwindcss.com/) - For styling
 - [Lucide icons](https://lucide.dev/icons/) - For adding icons to the react apps.
 
-####  Backend 
+#  Backend
 
 - [Node js](https://nodejs.org/en/) -A runtime environment to help build fast server applications using JS
 - [Express js](https://www.npmjs.com/package/express) -The server for handling and routing HTTP requests
@@ -35,10 +56,38 @@ This project was created using the following technologies.
 - [Bcryptjs](https://www.npmjs.com/package/bcryptjs) - For data encryption
 - [Dotenv](https://www.npmjs.com/package/dotenv) - Zero Dependency module that loads environment variables
 - [cors](https://www.npmjs.com/package/cors) - Provides a Connect/Express middleware
-- [multer](https://www.npmjs.com/package/multer) - Node.js middleware for uploading files 
+- [multer](https://www.npmjs.com/package/multer) - Node.js middleware for uploading files
 - [Cloudinary](https://cloudinary.com) - For uploading images
 
 
-####  Database 
+####  Database
 
- - [MongoDB ](https://www.mongodb.com/) - Free cloud service to store MongoDB collections.
+ - [MongoDB ](https://www.mongodb.com/) - Free cloud service to store MongoDB collections. -->
+
+---
+
+## Documentation
+
+[Please find documentation about the project here](https://drive.google.com/file/d/1GM4MLy3IFLEc0v61Pi92kl1rxQlHBags/view?usp=sharing)
+
+## Diagrams
+
+### ER Diagram
+
+<p align="center">
+  <img src="/diagrams/er.jpg" alt="ER Diagram" />
+</p>
+
+### Flow Diagram
+
+<p align="center">
+  <img src="/diagrams/flow.jpg" alt="Flow Diagram" />
+</p>
+
+### HL Diagram
+
+<p align="center">
+  <img src="/diagrams/Hl.jpg" alt="HL Diagram" />
+</p>
+
+---
