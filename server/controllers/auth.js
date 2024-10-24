@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken"
 
 export const register = async (req, res, next) => {
   const { name, email, password } = req.body;
-  console.log(name, email, password, "back");
 
   try {
     const userExists = await User.findOne({ email });
@@ -22,7 +21,6 @@ export const register = async (req, res, next) => {
       email: email,
       password: hash,
     });
-    console.log(newUser, "New user created");
 
     // Save the user to the database
     await newUser.save();
@@ -30,16 +28,14 @@ export const register = async (req, res, next) => {
     // Generate JWT token
     const accessToken = jwt.sign(
       { id: newUser._id, isAdmin: newUser.isAdmin },
-      process.env.JWT_SECRET, // Ensure JWT_SECRET is set correctly
+      process.env.JWT_SECRET, 
       { expiresIn: process.env.ACCESS_TOKEN_EXPIRY || '1d' } // Default to 1 day if not set
     );
-
-    console.log(accessToken, "Token generated");
 
     // Define cookie options
     const options = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Secure in production
+      secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
       sameSite: 'strict',
     };
@@ -53,7 +49,6 @@ export const register = async (req, res, next) => {
       .cookie("accessToken", accessToken, options)
       .json({ user: { ...otherDetails }, isAdmin });
   } catch (err) {
-    console.error("Error during registration:", err); // Log any errors
     next(err);
   }
 };

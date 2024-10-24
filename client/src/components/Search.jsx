@@ -25,10 +25,10 @@ const Search = () => {
   const form = useForm({
     resolver: zodResolver(searchSchema),
     defaultValues: {
-      from: searchParams.get("from") || "", // Ensure default value is an empty string if not found
-      to: searchParams.get("to") || "", // Ensure default value is an empty string if not found
-      seat: parseInt(searchParams.get("seat")) >= 1 && parseInt(searchParams.get("seat")) <= 10 ? parseInt(searchParams.get("seat")) : 1, // Ensure seat is between 1 and 10
-      date: searchParams.get("date") ? new Date(searchParams.get("date")) : null // Convert date string to Date object or null if not found
+      from: searchParams.get("from") || "", 
+      to: searchParams.get("to") || "", 
+      seat: parseInt(searchParams.get("seat")) >= 1 && parseInt(searchParams.get("seat")) <= 10 ? parseInt(searchParams.get("seat")) : 1, 
+      date: searchParams.get("date") ? new Date(searchParams.get("date")) : null 
     },
   });
 

@@ -52,26 +52,19 @@ export const findRides = async (req, res, next) => {
 
 export const joinRide = async (req, res, next) => {
   try {
-    console.log("Request Params ID:", req.params.id); // Log Ride ID
-    console.log("User ID:", req.user ? req.user.id : "No User"); // Log User ID
-
-    // Find the ride
     const ride = await Ride.findById(req.params.id);
     
     if (!ride) {
-      console.log("Ride not found");
       return res.status(404).json('Ride not found!');
     }
 
     // Check if user already joined
     if (ride.passengers.includes(req.user.id)) {
-      console.log("User already joined this ride");
       return res.status(400).json('You already joined this ride!');
     }
 
     // Check if ride is full
     if (ride.passengers.length >= ride.availableSeats) {
-      console.log("Ride is full");
       return res.status(400).json('Ride is full!');
     }
 
@@ -96,18 +89,14 @@ export const joinRide = async (req, res, next) => {
 
       await session.commitTransaction();
       session.endSession();
-
-      console.log("Ride and user successfully updated");
       res.status(200).json({ message: 'Successfully joined the ride!' });
     } catch (transactionError) {
-      console.log("Transaction failed:", transactionError);
       await session.abortTransaction();
       session.endSession();
       next(transactionError);
     }
 
   } catch (err) {
-    console.error("Error in joinRide:", err); // Log the actual error
     next(err);
   }
 }

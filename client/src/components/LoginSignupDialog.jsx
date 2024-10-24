@@ -19,7 +19,6 @@ const LoginSignupDialog = () => {
     event.preventDefault();
     dispatch({ type: 'LOGIN_START' });
     try{
-      // const res = await axios.post(`${apiUri}/auth/login`, loginData, {withCredentials: true})
       const res = await axios.post(`${apiUri}/auth/login`, loginData, {withCredentials: true})
       dispatch({type:"LOGIN_SUCCESS", payload: res.data})
       setLoginData({ email: "", password: "" })

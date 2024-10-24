@@ -20,19 +20,17 @@ const RideDetail = () => {
 
   const handleBook = async () => {
     try {
-      console.log("Joining ride with ID:", rideId); // Log rideId for confirmation
       const res = await axios.get(`${apiUri}/rides/${rideId}/join`, { withCredentials: true });
-      console.log(res,"res");
       
       toast(res.data.message, {
         description: format(new Date(), "PPp"),
       });
       // Redirect to profile after showing the toast
       setTimeout(() => {
-        navigate('/profile'); // Redirect to profile page
+        navigate('/profile'); 
       }, 500);
     } catch (err) {
-      console.error("Error in handleBook:", err); // Log the error
+      console.error("Error in handleBook:", err); 
     }
   };
   
